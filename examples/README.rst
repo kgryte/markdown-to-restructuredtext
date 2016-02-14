@@ -13,7 +13,9 @@ Installation
 
     $ npm install markdown-to-restructuredtext
 
-Installation prerequisites: \* `pandoc <http://pandoc.org/>`__
+Installation prerequisites:
+
+-  `pandoc <http://pandoc.org/>`__
 
 Usage
 -----
@@ -22,7 +24,8 @@ Usage
 
     var md2rst = require( 'markdown-to-restructuredtext' );
 
- #### md2rst( src, dest[, opts], clbk )
+md2rst( src, dest[, opts], clbk )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Asynchronously converts
 `Markdown <https://daringfireball.net/projects/markdown/>`__ to
@@ -59,10 +62,12 @@ working directory <https://github.com/kgryte/utils-cwd>`__.
         console.log( 'output file: /some/output.rst' );
     }
 
-The ``function`` accepts the following options: \* **flavor**:
-`Markdown <https://daringfireball.net/projects/markdown/>`__ flavor;
-e.g., ``'github'``. For supported flavors, see
-`pandoc <http://pandoc.org/>`__. Default: ``''``.
+The ``function`` accepts the following options:
+
+-  **flavor**:
+   `Markdown <https://daringfireball.net/projects/markdown/>`__ flavor;
+   e.g., ``'github'``. For supported flavors, see
+   `pandoc <http://pandoc.org/>`__. Default: ``''``.
 
 By default, the ``function`` assumes standard
 `Markdown <https://daringfireball.net/projects/markdown/>`__. To convert
@@ -85,7 +90,8 @@ the ``flavor`` option.
         console.log( 'converted from Github Flavored Markdown' );
     }
 
- #### md2rst.sync( src, dest[, opts] )
+md2rst.sync( src, dest[, opts] )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Synchronously converts
 `Markdown <https://daringfireball.net/projects/markdown/>`__ to
@@ -97,6 +103,41 @@ Synchronously converts
 
 The ``function`` accepts the same ``options`` as
 ```md2rst()`` <#async>`__.
+
+--------------
+
+Examples
+--------
+
+.. code:: javascript
+
+    var path = require( 'path' );
+    var md2rst = require( 'markdown-to-restructuredtext' );
+
+    var inFile = path.resolve( __dirname, '../README.md' );
+    var outFile = './examples/README.rst';
+
+    var opts = {
+        'flavor': 'github'
+    };
+
+    md2rst( inFile, outFile, opts, done );
+
+    function done( error ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( 'Input file: %s', inFile );
+        console.log( 'Output file: %s', outFile );
+    }
+
+To run the example code from the top-level application directory,
+
+.. code:: bash
+
+    $ DEBUG=* node ./examples/index.js
+
+--------------
 
 CLI
 ---
@@ -153,6 +194,46 @@ the command to point to the executable; e.g.,
 .. code:: bash
 
     $ DEBUG=* node ./bin/cli --flavor=github -o ./README.rst ./README.md
+
+--------------
+
+Tests
+-----
+
+Unit
+~~~~
+
+This repository uses `tape <https://github.com/substack/tape>`__ for
+unit tests. To run the tests, execute the following command in the
+top-level application directory:
+
+.. code:: bash
+
+    $ make test
+
+All new feature development should have corresponding unit tests to
+validate correct functionality.
+
+Test Coverage
+~~~~~~~~~~~~~
+
+This repository uses
+`Istanbul <https://github.com/gotwarlost/istanbul>`__ as its code
+coverage tool. To generate a test coverage report, execute the following
+command in the top-level application directory:
+
+.. code:: bash
+
+    $ make test-cov
+
+Istanbul creates a ``./reports/coverage`` directory. To access an HTML
+version of the report,
+
+.. code:: bash
+
+    $ make view-cov
+
+--------------
 
 License
 -------

@@ -7,7 +7,7 @@ var inFile = path.resolve( __dirname, '../README.md' );
 var outFile = './examples/README.rst';
 
 var opts = {
-	'flavor': ''
+	'flavor': 'github'
 };
 
 md2rst( inFile, outFile, opts, done );
