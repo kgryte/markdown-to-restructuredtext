@@ -100,6 +100,7 @@ var outFile = path.join( __dirname, 'README.rst' );
 var opts = {
 	'flavor': 'github'
 };
+
 md2rst( inFile, outFile, opts, done );
 
 function done( error ) {

@@ -9,6 +9,7 @@ var outFile = './examples/README.rst';
 var opts = {
 	'flavor': 'github'
 };
+
 md2rst( inFile, outFile, opts, done );
 
 function done( error ) {
