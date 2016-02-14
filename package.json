@@ -53,8 +53,10 @@
     "istanbul": "^0.4.1",
     "jshint": "2.x.x",
     "jshint-stylish": "2.x.x",
+    "mkdirp": "^0.5.1",
     "tap-spec": "4.x.x",
-    "tape": "4.x.x"
+    "tape": "4.x.x",
+    "utils-fs-exists": "^1.0.1"
   },
   "license": "MIT"
 }
