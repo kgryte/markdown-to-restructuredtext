@@ -10,7 +10,7 @@ node_js:
   - '0.10'
 before_install:
   - wget https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-1-amd64.deb
-  - dpkg -i pandoc-1.16.0.2-1-amd64.deb
+  - sudo dpkg -i pandoc-1.16.0.2-1-amd64.deb
   - pandoc --version
   - npm update -g npm
 after_script:
