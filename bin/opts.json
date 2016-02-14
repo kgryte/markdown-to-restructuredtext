@@ -1,0 +1,21 @@
+{
+	"string": [
+		"flavor",
+		"output"
+	],
+	"boolean": [
+		"help",
+		"version"
+	],
+	"alias": {
+		"help": [
+			"h"
+		],
+		"version": [
+			"V"
+		],
+		"output": [
+			"o"
+		]
+	}
+}

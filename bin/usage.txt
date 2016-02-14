@@ -1,0 +1,10 @@
+
+Usage: md2rst [options] inFile
+
+Options:
+
+  -h,  --help               Print this message.
+  -V,  --version            Print the package version.
+       --flavor flavor      Markdown flavor. Default: (none).
+  -o,  --output file        Output file path.
+

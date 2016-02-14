@@ -43,6 +43,8 @@
   },
   "dependencies": {
     "debug": "^2.2.0",
+    "minimist": "^1.2.0",
+    "update-notifier": "^0.6.0",
     "utils-copy": "^1.1.0",
     "utils-cwd": "^2.0.0",
     "validate.io-function": "^1.0.2",

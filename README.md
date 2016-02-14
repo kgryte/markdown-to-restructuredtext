@@ -134,14 +134,26 @@ $ npm install -g markdown-to-restructuredtext
 ### Usage
 
 ``` bash
+Usage: md2rst [options] inFile
 
+Options:
+
+  -h,  --help               Print this message.
+  -V,  --version            Print the package version.
+       --flavor flavor      Markdown flavor. Default: (none).
+  -o,  --output file        Output file path.
 ```
+
+
+### Notes
+
+*	If not provided an `output` file path, the implementation will check the `input` file path for a `*.markdown` or `*.md` extension. If present, the `output` file will replace the `input` file extension with `*.rst` and write to a new file. If not present, the implementation will overwrite the `input` file.
 
 
 ### Examples
 
 ``` bash
-$
+$ DEBUG=* md2rst --flavor=github -o ./README.rst ./README.md
 ```
 
 
