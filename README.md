@@ -11,6 +11,9 @@ Markdown to reStructuredText
 $ npm install markdown-to-restructuredtext
 ```
 
+Prerequisites:
+*	[Pandoc][pandoc]
+
 
 ## Usage
 
@@ -82,12 +85,6 @@ md2rst.sync( './README.md', './README.rst' );
 ```
 
 The `function` accepts the same `options` as [`md2rst()`](#async).
-
-
-## Notes
-
-*	Installation prerequisites:
-	-	[Pandoc][pandoc]
 
 
 ---
