@@ -56,7 +56,7 @@ function done( error ) {
 ```
 
 The `function` accepts the following options:
-*	__flavor__: [Markdown][markdown] flavor; e.g., `'github'`. Default: `''`.
+*	__flavor__: [Markdown][markdown] flavor; e.g., `'github'`. For supported flavors, see [pandoc][pandoc]. Default: `''`.
 
 By default, the `function` assumes standard [Markdown][markdown]. To convert from a different [Markdown][markdown] flavor, set the `flavor` option.
 
