@@ -12,7 +12,7 @@ $ npm install markdown-to-restructuredtext
 ```
 
 Installation prerequisites:
-*	[Pandoc][pandoc]
+*	[pandoc][pandoc]
 
 
 ## Usage
