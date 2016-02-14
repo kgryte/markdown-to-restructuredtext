@@ -34,7 +34,7 @@ function done( error ) {
 }
 ```
 
-The `source` and `destination` file paths may be either absolute or relative. If relative, the file paths are resolved relative to the [current working directory][utils-cwd].
+The `source` and `destination` file paths may be either absolute or relative. If relative, a file path is resolved relative to the [current working directory][utils-cwd].
 
 ``` javascript
 var inFile = '/path/to/my/file.md';
