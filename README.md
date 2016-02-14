@@ -156,6 +156,18 @@ Options:
 $ DEBUG=* md2rst --flavor=github -o ./README.rst ./README.md
 ```
 
+For local installations, modify the command to point to the local installation directory; e.g., 
+
+``` bash
+$ DEBUG=* ./node_modules/.bin/md2rst --flavor=github -o ./README.rst ./README.md
+```
+
+Or, if you have cloned this repository and run `npm install`, modify the command to point to the executable; e.g., 
+
+``` bash
+$ DEBUG=* node ./bin/cli --flavor=github -o ./README.rst ./README.md
+```
+
 
 ---
 ## Tests
