@@ -1,0 +1,152 @@
+Markdown to reStructuredText
+============================
+
+|NPM version| |Build Status| |Coverage Status| |Dependencies|
+
+    Convert `Markdown <https://daringfireball.net/projects/markdown/>`__
+    to `reStructuredText <http://docutils.sourceforge.net/rst.html>`__.
+
+Installation
+------------
+
+.. code:: bash
+
+    $ npm install markdown-to-restructuredtext
+
+Usage
+-----
+
+.. code:: javascript
+
+    var md2rst = require( 'markdown-to-restructuredtext' );
+
+md2rst( src, dest[, opts], clbk )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Asynchronously converts
+`Markdown <https://daringfireball.net/projects/markdown/>`__ to
+`reStructuredText <http://docutils.sourceforge.net/rst.html>`__.
+
+.. code:: javascript
+
+Notes
+-----
+
+-  Installation prerequisites:
+
+   -  `Pandoc <http://pandoc.org/>`__
+
+Examples
+--------
+
+.. code:: javascript
+
+    var path = require( 'path' );
+    var md2rst = require( 'markdown-to-restructuredtext' );
+
+    var inFile = path.resolve( __dirname, '../README.md' );
+    var outFile = path.join( __dirname, 'README.rst' );
+
+    var opts = {
+        'flavor': 'github'
+    };
+    md2rst( inFile, outFile, opts, done );
+
+    function done( error ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( 'Input file: %s', inFile );
+        console.log( 'Output file: %s', outFile );
+    }
+
+To run the example code from the top-level application directory,
+
+.. code:: bash
+
+    $ node ./examples/index.js
+
+--------------
+
+CLI
+---
+
+Installation
+~~~~~~~~~~~~
+
+To use the module as a general utility, install the module globally
+
+.. code:: bash
+
+    $ npm install -g markdown-to-restructuredtext
+
+Usage
+~~~~~
+
+.. code:: bash
+
+Examples
+~~~~~~~~
+
+.. code:: bash
+
+    $
+
+--------------
+
+Tests
+-----
+
+Unit
+~~~~
+
+This repository uses `tape <https://github.com/substack/tape>`__ for
+unit tests. To run the tests, execute the following command in the
+top-level application directory:
+
+.. code:: bash
+
+    $ make test
+
+All new feature development should have corresponding unit tests to
+validate correct functionality.
+
+Test Coverage
+~~~~~~~~~~~~~
+
+This repository uses
+`Istanbul <https://github.com/gotwarlost/istanbul>`__ as its code
+coverage tool. To generate a test coverage report, execute the following
+command in the top-level application directory:
+
+.. code:: bash
+
+    $ make test-cov
+
+Istanbul creates a ``./reports/coverage`` directory. To access an HTML
+version of the report,
+
+.. code:: bash
+
+    $ make view-cov
+
+--------------
+
+License
+-------
+
+`MIT license <http://opensource.org/licenses/MIT>`__.
+
+Copyright
+---------
+
+Copyright © 2016. Athan Reines.
+
+.. |NPM version| image:: http://img.shields.io/npm/v/markdown-to-restructuredtext.svg
+   :target: https://npmjs.org/package/markdown-to-restructuredtext
+.. |Build Status| image:: http://img.shields.io/travis/kgryte/markdown-to-restructuredtext/master.svg
+   :target: https://travis-ci.org/kgryte/markdown-to-restructuredtext
+.. |Coverage Status| image:: https://img.shields.io/codecov/c/github/kgryte/markdown-to-restructuredtext/master.svg
+   :target: https://codecov.io/github/kgryte/markdown-to-restructuredtext?branch=master
+.. |Dependencies| image:: http://img.shields.io/david/kgryte/markdown-to-restructuredtext.svg
+   :target: https://david-dm.org/kgryte/markdown-to-restructuredtext

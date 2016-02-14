@@ -26,21 +26,27 @@
     "url": "git://github.com/kgryte/markdown-to-restructuredtext.git"
   },
   "keywords": [
-		"convert",
-		"pandoc",
-		"markdown",
-		"md",
-		"restructuredtext",
-		"rst",
-		"md2rst",
-		"gfm",
-		"utility",
-		"util"
-	],
+    "convert",
+    "pandoc",
+    "markdown",
+    "md",
+    "restructuredtext",
+    "rst",
+    "md2rst",
+    "gfm",
+    "github",
+    "utility",
+    "util"
+  ],
   "bugs": {
     "url": "https://github.com/kgryte/markdown-to-restructuredtext/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "utils-copy": "^1.1.0",
+    "utils-cwd": "^2.0.0",
+    "validate.io-object": "^1.0.4",
+    "validate.io-string-primitive": "^1.0.0"
+  },
   "devDependencies": {
     "codecov": "1.x.x",
     "istanbul": "^0.4.1",
