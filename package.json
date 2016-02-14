@@ -60,5 +60,8 @@
     "tape": "4.x.x",
     "utils-fs-exists": "^1.0.1"
   },
+  "engines": {
+    "node": ">=0.12"
+  },
   "license": "MIT"
 }
