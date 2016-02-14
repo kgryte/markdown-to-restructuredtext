@@ -11,7 +11,7 @@ Markdown to reStructuredText
 $ npm install markdown-to-restructuredtext
 ```
 
-Prerequisites:
+Installation prerequisites:
 *	[Pandoc][pandoc]
 
 
@@ -114,7 +114,7 @@ function done( error ) {
 To run the example code from the top-level application directory,
 
 ``` bash
-$ node ./examples/index.js
+$ DEBUG=* node ./examples/index.js
 ```
 
 

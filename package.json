@@ -42,6 +42,7 @@
     "url": "https://github.com/kgryte/markdown-to-restructuredtext/issues"
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "utils-copy": "^1.1.0",
     "utils-cwd": "^2.0.0",
     "validate.io-object": "^1.0.4",

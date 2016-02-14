@@ -13,6 +13,10 @@ Installation
 
     $ npm install markdown-to-restructuredtext
 
+Installation prerequisites:
+
+-  `Pandoc <http://pandoc.org/>`__
+
 Usage
 -----
 
@@ -29,12 +33,77 @@ Asynchronously converts
 
 .. code:: javascript
 
-Notes
------
+    md2rst( './README.md', './README.rst', done );
 
--  Installation prerequisites:
+    function done( error ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( 'converted' );
+    }
 
-   -  `Pandoc <http://pandoc.org/>`__
+The ``source`` and ``destination`` file paths may be either absolute or
+relative. If relative, a file path is resolved relative to the `current
+working directory <https://github.com/kgryte/utils-cwd>`__.
+
+.. code:: javascript
+
+    var inFile = '/path/to/my/file.md';
+    var outFile = './../output.rst';
+
+    process.chdir( '/some/directory' );
+
+    md2rst( inFile, outFile, done );
+
+    function done( error ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( 'output file: /some/output.rst' );
+    }
+
+The ``function`` accepts the following options:
+
+-  **flavor**:
+   `Markdown <https://daringfireball.net/projects/markdown/>`__ flavor;
+   e.g., ``'github'``. Default: ``''``.
+
+By default, the ``function`` assumes standard
+`Markdown <https://daringfireball.net/projects/markdown/>`__. To convert
+from a different
+`Markdown <https://daringfireball.net/projects/markdown/>`__ flavor, set
+the ``flavor`` option.
+
+.. code:: javascript
+
+    var opts = {
+        'flavor': 'github' // GFM
+    };
+
+    md2rst( './README.md', './README.rst', opts, done );
+
+    function done( error ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( 'converted from Github Flavored Markdown' );
+    }
+
+md2rst.sync( src, dest[, opts] )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Synchronously converts
+`Markdown <https://daringfireball.net/projects/markdown/>`__ to
+`reStructuredText <http://docutils.sourceforge.net/rst.html>`__.
+
+.. code:: javascript
+
+    md2rst.sync( './README.md', './README.rst' );
+
+The ``function`` accepts the same ``options`` as
+```md2rst()`` <#async>`__.
+
+--------------
 
 Examples
 --------
@@ -64,7 +133,7 @@ To run the example code from the top-level application directory,
 
 .. code:: bash
 
-    $ node ./examples/index.js
+    $ DEBUG=* node ./examples/index.js
 
 --------------
 
