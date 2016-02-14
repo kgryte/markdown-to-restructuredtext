@@ -36,7 +36,9 @@
     "gfm",
     "github",
     "utility",
-    "util"
+    "util",
+    "docutils",
+    "docs"
   ],
   "bugs": {
     "url": "https://github.com/kgryte/markdown-to-restructuredtext/issues"
