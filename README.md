@@ -95,7 +95,7 @@ var path = require( 'path' );
 var md2rst = require( 'markdown-to-restructuredtext' );
 
 var inFile = path.resolve( __dirname, '../README.md' );
-var outFile = path.join( __dirname, 'README.rst' );
+var outFile = './examples/README.rst';
 
 var opts = {
 	'flavor': 'github'
