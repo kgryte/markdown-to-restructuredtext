@@ -38,7 +38,8 @@
     "utility",
     "util",
     "docutils",
-    "docs"
+    "docs",
+    "cli"
   ],
   "bugs": {
     "url": "https://github.com/kgryte/markdown-to-restructuredtext/issues"
