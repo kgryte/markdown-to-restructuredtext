@@ -24,11 +24,11 @@ Usage
 
     var md2rst = require( 'markdown-to-restructuredtext' );
 
-md2rst( dest, src[, opts], clbk )
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+md2rst( [dest,] src[, opts], clbk )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Asynchronously converts
-`Markdown <https://daringfireball.net/projects/markdown/>`__ to
+Asynchronously converts a
+`Markdown <https://daringfireball.net/projects/markdown/>`__ file to
 `reStructuredText <http://docutils.sourceforge.net/rst.html>`__.
 
 .. code:: javascript
@@ -62,6 +62,21 @@ working directory <https://github.com/kgryte/utils-cwd>`__.
         console.log( 'output file: /some/output.rst' );
     }
 
+If not provided a ``destination`` file path, the ``function`` returns a
+`reStructuredText <http://docutils.sourceforge.net/rst.html>`__
+``string``.
+
+.. code:: javascript
+
+    md2rst( './README.md', done );
+
+    function done( error, rst ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( rst );
+    }
+
 The ``function`` accepts the following options:
 
 -  **flavor**:
@@ -90,8 +105,8 @@ the ``flavor`` option.
         console.log( 'converted from Github Flavored Markdown' );
     }
 
-md2rst.sync( dest, src[, opts] )
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+md2rst.sync( [dest,] src[, opts] )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Synchronously converts
 `Markdown <https://daringfireball.net/projects/markdown/>`__ to
@@ -99,7 +114,12 @@ Synchronously converts
 
 .. code:: javascript
 
+    // Write to an output file:
     md2rst.sync( './README.rst', './README.md' );
+
+    // Return a reStructuredText string:
+    var rst = md2rst( './README.md' );
+    // returns <string>
 
 The ``function`` accepts the same ``options`` as
 ```md2rst()`` <#async>`__.
@@ -114,16 +134,25 @@ Examples
     var path = require( 'path' );
     var md2rst = require( 'markdown-to-restructuredtext' );
 
-    var inFile = path.resolve( __dirname, '../README.md' );
-    var outFile = './examples/README.rst';
+    var inFile = path.resolve( __dirname, '../../README.md' );
+    var outFile = path.join( __dirname, './README.rst' );
 
     var opts = {
         'flavor': 'github'
     };
 
-    md2rst( outFile, inFile, opts, done );
+    md2rst( inFile, opts, onResults );
 
-    function done( error ) {
+    function onResults( error, rst ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log( rst );
+    }
+
+    md2rst( outFile, inFile, opts, onFile );
+
+    function onFile( error ) {
         if ( error ) {
             throw error;
         }
@@ -135,7 +164,7 @@ To run the example code from the top-level application directory,
 
 .. code:: bash
 
-    $ DEBUG=* node ./examples/index.js
+    $ DEBUG=* node ./examples/file_async/index.js
 
 --------------
 
@@ -168,11 +197,9 @@ Usage
 Notes
 ~~~~~
 
--  If not provided an ``output`` file path, the implementation will
-   check the ``input`` file path for a ``*.markdown`` or ``*.md``
-   extension. If present, the ``output`` file will replace the ``input``
-   file extension with ``*.rst`` and write to a new file. If not
-   present, the implementation will overwrite the ``input`` file.
+-  If not provided an ``output`` file path, the generated
+   `reStructuredText <http://docutils.sourceforge.net/rst.html>`__ is
+   written to ``stdout``.
 
 Examples
 ~~~~~~~~

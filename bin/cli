@@ -72,8 +72,6 @@ opts = {};
 inFile = args._[ 0 ];
 if ( args.output ) {
 	outFile = args.output;
-} else {
-	outFile = inFile.replace( /\.markdown$|\.md$/, '.rst' );
 }
 if ( args.flavor ) {
 	opts.flavor = args.flavor;
@@ -82,18 +80,27 @@ if ( args.flavor ) {
 
 // CONVERT //
 
-md2rst( outFile, inFile, opts, clbk );
+if ( outFile === void 0 ) {
+	md2rst( inFile, opts, clbk );
+} else {
+	md2rst( outFile, inFile, opts, clbk );
+}
 
 /**
-* FUNCTION: clbk( [error] )
+* FUNCTION: clbk( [error[, results]] )
 *	Callback invoked upon attempting to convert an input file.
 *
 * @private
-* @param {Error} [error] - error object
+* @param {Error|Null} [error] - error object
+* @param {Buffer} [results] - conversion results
 * @returns {Void}
 */
-function clbk( error ) {
+function clbk( error, results ) {
 	if ( error ) {
 		throw error;
+	}
+	if ( arguments.length === 2 ) {
+		process.stdout.write( results.toString(), 'utf8' );
+		process.stdout.write( '\n', 'utf8' );
 	}
 }
