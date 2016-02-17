@@ -16,32 +16,6 @@ tape( 'main export is a function', function test( t ) {
 	t.end();
 });
 
-tape( 'the function throws an error if provided a source argument which is not a string primitive', function test( t ) {
-	var values;
-	var i;
-
-	values = [
-		5,
-		NaN,
-		null,
-		undefined,
-		true,
-		[],
-		{},
-		function(){}
-	];
-
-	for ( i = 0; i < values.length; i++ ) {
-		t.throws( badValue( values[i] ), TypeError, 'throws a type error when provided ' + values[i] );
-	}
-	t.end();
-	function badValue( value ) {
-		return function badValue() {
-			md2rst( value, 'beep.rst' );
-		};
-	}
-});
-
 tape( 'the function throws an error if provided a destination argument which is not a string primitive', function test( t ) {
 	var values;
 	var i;
@@ -63,7 +37,33 @@ tape( 'the function throws an error if provided a destination argument which is 
 	t.end();
 	function badValue( value ) {
 		return function badValue() {
-			md2rst( 'beep.md', value );
+			md2rst( value, 'beep.md' );
+		};
+	}
+});
+
+tape( 'the function throws an error if provided a source argument which is not a string primitive', function test( t ) {
+	var values;
+	var i;
+
+	values = [
+		5,
+		NaN,
+		null,
+		undefined,
+		true,
+		[],
+		{},
+		function(){}
+	];
+
+	for ( i = 0; i < values.length; i++ ) {
+		t.throws( badValue( values[i] ), TypeError, 'throws a type error when provided ' + values[i] );
+	}
+	t.end();
+	function badValue( value ) {
+		return function badValue() {
+			md2rst( 'beep.rst', value );
 		};
 	}
 });
@@ -89,7 +89,7 @@ tape( 'the function throws an error if provided an options argument which is not
 	t.end();
 	function badValue( value ) {
 		return function badValue() {
-			md2rst( 'beep.md', 'beep.rst', value );
+			md2rst( 'beep.rst', 'beep.md', value );
 		};
 	}
 });
@@ -98,7 +98,7 @@ tape( 'the function throws an error if provided an invalid option', function tes
 	t.throws( badValue, 'TypeError', 'throws a type error' );
 	t.end();
 	function badValue() {
-		md2rst( 'beep.md', 'beep.rst', {
+		md2rst( 'beep.rst', 'beep.md', {
 			'flavor': null
 		});
 	}
@@ -115,7 +115,7 @@ tape( 'the function converts a Markdown file to reStructuredText', function test
 	inFile = path.resolve( __dirname, '../README.md' );
 
 	mkdirp.sync( outDir );
-	md2rst( inFile, outFile );
+	md2rst( outFile, inFile );
 
 	bool = exists.sync( outFile );
 	t.ok( bool, 'converted file exists' );
@@ -134,7 +134,7 @@ tape( 'the function converts a Markdown file to reStructuredText (options)', fun
 	inFile = path.resolve( __dirname, '../README.md' );
 
 	mkdirp.sync( outDir );
-	md2rst( inFile, outFile, {'flavor':'github'} );
+	md2rst( outFile, inFile, {'flavor':'github'} );
 
 	bool = exists.sync( outFile );
 	t.ok( bool, 'converted file exists' );

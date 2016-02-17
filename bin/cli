@@ -82,7 +82,7 @@ if ( args.flavor ) {
 
 // CONVERT //
 
-md2rst( inFile, outFile, opts, clbk );
+md2rst( outFile, inFile, opts, clbk );
 
 /**
 * FUNCTION: clbk( [error] )

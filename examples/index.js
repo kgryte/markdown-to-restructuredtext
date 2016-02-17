@@ -10,7 +10,7 @@ var opts = {
 	'flavor': 'github'
 };
 
-md2rst( inFile, outFile, opts, done );
+md2rst( outFile, inFile, opts, done );
 
 function done( error ) {
 	if ( error ) {

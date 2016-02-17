@@ -22,12 +22,12 @@ var md2rst = require( 'markdown-to-restructuredtext' );
 ```
 
 <a name="async"></a>
-#### md2rst( src, dest[, opts], clbk )
+#### md2rst( dest, src[, opts], clbk )
 
 Asynchronously converts [Markdown][markdown] to [reStructuredText][rst].
 
 ``` javascript
-md2rst( './README.md', './README.rst', done );
+md2rst( './README.rst', './README.md', done );
 
 function done( error ) {
 	if ( error ) {
@@ -37,7 +37,7 @@ function done( error ) {
 }
 ```
 
-The `source` and `destination` file paths may be either absolute or relative. If relative, a file path is resolved relative to the [current working directory][utils-cwd].
+The `destination` and `source` file paths may be either absolute or relative. If relative, a file path is resolved relative to the [current working directory][utils-cwd].
 
 ``` javascript
 var inFile = '/path/to/my/file.md';
@@ -45,7 +45,7 @@ var outFile = './../output.rst';
 
 process.chdir( '/some/directory' );
 
-md2rst( inFile, outFile, done );
+md2rst( outFile, inFile, done );
 
 function done( error ) {
 	if ( error ) {
@@ -65,7 +65,7 @@ var opts = {
 	'flavor': 'github' // GFM
 };
 
-md2rst( './README.md', './README.rst', opts, done );
+md2rst( './README.rst', './README.md', opts, done );
 
 function done( error ) {
 	if ( error ) {
@@ -76,12 +76,12 @@ function done( error ) {
 ```
 
 <a name="sync"></a>
-#### md2rst.sync( src, dest[, opts] )
+#### md2rst.sync( dest, src[, opts] )
 
 Synchronously converts [Markdown][markdown] to [reStructuredText][rst].
 
 ``` javascript
-md2rst.sync( './README.md', './README.rst' );
+md2rst.sync( './README.rst', './README.md' );
 ```
 
 The `function` accepts the same `options` as [`md2rst()`](#async).
@@ -101,7 +101,7 @@ var opts = {
 	'flavor': 'github'
 };
 
-md2rst( inFile, outFile, opts, done );
+md2rst( outFile, inFile, opts, done );
 
 function done( error ) {
 	if ( error ) {

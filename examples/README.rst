@@ -24,7 +24,7 @@ Usage
 
     var md2rst = require( 'markdown-to-restructuredtext' );
 
-md2rst( src, dest[, opts], clbk )
+md2rst( dest, src[, opts], clbk )
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Asynchronously converts
@@ -33,7 +33,7 @@ Asynchronously converts
 
 .. code:: javascript
 
-    md2rst( './README.md', './README.rst', done );
+    md2rst( './README.rst', './README.md', done );
 
     function done( error ) {
         if ( error ) {
@@ -42,7 +42,7 @@ Asynchronously converts
         console.log( 'converted' );
     }
 
-The ``source`` and ``destination`` file paths may be either absolute or
+The ``destination`` and ``source`` file paths may be either absolute or
 relative. If relative, a file path is resolved relative to the `current
 working directory <https://github.com/kgryte/utils-cwd>`__.
 
@@ -53,7 +53,7 @@ working directory <https://github.com/kgryte/utils-cwd>`__.
 
     process.chdir( '/some/directory' );
 
-    md2rst( inFile, outFile, done );
+    md2rst( outFile, inFile, done );
 
     function done( error ) {
         if ( error ) {
@@ -81,7 +81,7 @@ the ``flavor`` option.
         'flavor': 'github' // GFM
     };
 
-    md2rst( './README.md', './README.rst', opts, done );
+    md2rst( './README.rst', './README.md', opts, done );
 
     function done( error ) {
         if ( error ) {
@@ -90,7 +90,7 @@ the ``flavor`` option.
         console.log( 'converted from Github Flavored Markdown' );
     }
 
-md2rst.sync( src, dest[, opts] )
+md2rst.sync( dest, src[, opts] )
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Synchronously converts
@@ -99,7 +99,7 @@ Synchronously converts
 
 .. code:: javascript
 
-    md2rst.sync( './README.md', './README.rst' );
+    md2rst.sync( './README.rst', './README.md' );
 
 The ``function`` accepts the same ``options`` as
 ```md2rst()`` <#async>`__.
@@ -121,7 +121,7 @@ Examples
         'flavor': 'github'
     };
 
-    md2rst( inFile, outFile, opts, done );
+    md2rst( outFile, inFile, opts, done );
 
     function done( error ) {
         if ( error ) {
