@@ -98,7 +98,117 @@ Synchronously converts [Markdown][markdown] to [reStructuredText][rst].
 md2rst.sync( './README.rst', './README.md' );
 
 // Return a reStructuredText string:
-var rst = md2rst( './README.md' );
+var rst = md2rst.sync( './README.md' );
+// returns <string>
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="async-string"></a>
+#### md2rst.fromString( [dest,] str[, opts], clbk )
+
+Asynchronously converts a [Markdown][markdown] `string` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md', {'encoding':'utf8'} );
+
+md2rst.fromString( './README.rst', data, done );
+
+function done( error ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( 'converted' );
+}
+```
+
+If not provided a `destination` file path, the `function` returns a [reStructuredText][rst] `string`.
+
+``` javascript
+md2rst.fromString( data, done );
+
+function done( error, rst ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( rst );
+}
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="sync-string"></a>
+#### md2rst.fromStringSync( [dest,] str[, opts] )
+
+Synchronously converts a [Markdown][markdown] `string` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md', {'encoding':'utf8'} );
+
+// Write to an output file:
+md2rst.fromStringSync( './README.rst', data );
+
+// Return a reStructuredText string:
+var rst = md2rst.fromStringSync( data );
+// returns <string>
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="async-buffer"></a>
+#### md2rst.fromString( [dest,] buffer[, opts], clbk )
+
+Asynchronously converts a [Markdown][markdown] `buffer` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md' );
+
+md2rst.fromBuffer( './README.rst', data, done );
+
+function done( error ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( 'converted' );
+}
+```
+
+If not provided a `destination` file path, the `function` returns a [reStructuredText][rst] `string`.
+
+``` javascript
+md2rst.fromBuffer( data, done );
+
+function done( error, rst ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( rst );
+}
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="sync-buffer"></a>
+#### md2rst.fromBufferSync( [dest,] buffer[, opts] )
+
+Synchronously converts a [Markdown][markdown] `buffer` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md' );
+
+// Write to an output file:
+md2rst.fromBufferSync( './README.rst', data );
+
+// Return a reStructuredText string:
+var rst = md2rst.fromBufferSync( data );
 // returns <string>
 ```
 
