@@ -8,7 +8,14 @@ var mkdirp = require( 'mkdirp' );
 var exists = require( 'utils-fs-exists' );
 var noop = require( '@kgryte/noop' );
 var proxyquire = require( 'proxyquire' );
-var md2rst = require( './../lib/file/async.js' );
+var readFile = require( 'utils-fs-read-file' ).sync;
+var md2rst = require( './../lib/buffer/async.js' );
+
+
+// FIXTURES //
+
+var data = readFile( path.resolve( __dirname, '../README.md' ), {'encoding':'utf8'} );
+data = new Buffer( data );
 
 
 // TESTS //
@@ -53,23 +60,21 @@ tape( 'the function throws an error if provided an invalid option', function tes
 	t.throws( badValue, TypeError, 'throws a type error' );
 	t.end();
 	function badValue() {
-		md2rst( 'beep.rst', 'beep.md', {
+		md2rst( 'beep.rst', data, {
 			'flavor': null
 		}, noop );
 	}
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText file', function test( t ) {
+tape( 'the function converts Markdown data to a reStructuredText file', function test( t ) {
 	var outFile;
 	var outDir;
-	var inFile;
 
 	outDir = path.resolve( __dirname, '..', 'build/'+(new Date()).getTime() );
 	outFile = path.join( outDir, 'README.rst' );
-	inFile = path.resolve( __dirname, '../README.md' );
 
 	mkdirp.sync( outDir );
-	md2rst( outFile, inFile, done );
+	md2rst( outFile, data, done );
 
 	function done( error ) {
 		var bool;
@@ -84,17 +89,15 @@ tape( 'the function converts a Markdown file to a reStructuredText file', functi
 	}
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText file (options)', function test( t ) {
+tape( 'the function converts Markdown data to a reStructuredText file (options)', function test( t ) {
 	var outFile;
 	var outDir;
-	var inFile;
 
 	outDir = path.resolve( __dirname, '..', 'build/'+(new Date()).getTime() );
 	outFile = path.join( outDir, 'README.rst' );
-	inFile = path.resolve( __dirname, '../README.md' );
 
 	mkdirp.sync( outDir );
-	md2rst( outFile, inFile, {'flavor':'github'}, done );
+	md2rst( outFile, data, {'flavor':'github'}, done );
 
 	function done( error ) {
 		var bool;
@@ -109,10 +112,8 @@ tape( 'the function converts a Markdown file to a reStructuredText file (options
 	}
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText string', function test( t ) {
-	var inFile = path.resolve( __dirname, '../README.md' );
-
-	md2rst( inFile, done );
+tape( 'the function converts Markdown data to a reStructuredText string', function test( t ) {
+	md2rst( data, done );
 
 	function done( error, rst ) {
 		if ( error ) {
@@ -125,10 +126,8 @@ tape( 'the function converts a Markdown file to a reStructuredText string', func
 	}
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText string (options)', function test( t ) {
-	var inFile = path.resolve( __dirname, '../README.md' );
-
-	md2rst( inFile, {'flavor':'github'}, done );
+tape( 'the function converts Markdown data to a reStructuredText string (options)', function test( t ) {
+	md2rst( data, {'flavor':'github'}, done );
 
 	function done( error, rst ) {
 		if ( error ) {
@@ -141,66 +140,14 @@ tape( 'the function converts a Markdown file to a reStructuredText string (optio
 	}
 });
 
-tape( 'the function returns any errors to the provided callback (conversion)', function test( t ) {
-	var outFile;
-	var outDir;
-	var inFile;
-
-	outDir = path.resolve( __dirname, '..', 'build/'+(new Date()).getTime() );
-	outFile = path.join( outDir, 'README.rst' );
-
-	// Non-existent file:
-	inFile = path.resolve( __dirname, '../dfadlkfdjaflkdjflsdj.md' );
-
-	mkdirp.sync( outDir );
-	md2rst( outFile, inFile, done );
-
-	function done( error ) {
-		t.ok( error, 'returns an error' );
-		t.end();
-	}
-});
-
-tape( 'the function returns any errors to the provided callback (reading tmp file)', function test( t ) {
-	var md2rst;
-	var inFile;
-
-	inFile = path.resolve( __dirname, '../README.md' );
-
-	md2rst = proxyquire( './../lib/file/async.js', {
-		'utils-fs-read-file': read
+tape( 'the function returns any errors to the provided callback', function test( t ) {
+	var md2rst = proxyquire( './../lib/buffer/async.js', {
+		'./../data/async.js': convert
 	});
 
-	md2rst( inFile, done );
+	md2rst( data, done );
 
-	function read( file, opts, clbk ) {
-		setTimeout( onTimeout, 0 );
-		function onTimeout() {
-			clbk( new Error( 'beep' ) );
-		}
-	}
-
-	function done( error ) {
-		t.ok( error, 'returns an error' );
-		t.end();
-	}
-});
-
-tape( 'the function returns any errors to the provided callback (deleting tmp file)', function test( t ) {
-	var md2rst;
-	var inFile;
-
-	inFile = path.resolve( __dirname, '../README.md' );
-
-	md2rst = proxyquire( './../lib/file/async.js', {
-		'fs': {
-			'unlink': unlink
-		}
-	});
-
-	md2rst( inFile, done );
-
-	function unlink( file, clbk ) {
+	function convert( dest, data, opts, clbk ) {
 		setTimeout( onTimeout, 0 );
 		function onTimeout() {
 			clbk( new Error( 'beep' ) );

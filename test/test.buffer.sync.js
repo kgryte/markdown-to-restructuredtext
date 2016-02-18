@@ -7,7 +7,14 @@ var path = require( 'path' );
 var mkdirp = require( 'mkdirp' );
 var exists = require( 'utils-fs-exists' );
 var proxyquire = require( 'proxyquire' );
-var md2rst = require( './../lib/file/sync.js' );
+var readFile = require( 'utils-fs-read-file' ).sync;
+var md2rst = require( './../lib/buffer/sync.js' );
+
+
+// FIXTURES //
+
+var data = readFile( path.resolve( __dirname, '../README.md' ), {'encoding':'utf8'} );
+data = new Buffer( data );
 
 
 // TESTS //
@@ -51,24 +58,22 @@ tape( 'the function throws an error if provided an invalid option', function tes
 	t.throws( badValue, 'TypeError', 'throws a type error' );
 	t.end();
 	function badValue() {
-		md2rst( 'beep.rst', 'beep.md', {
+		md2rst( 'beep.rst', data, {
 			'flavor': null
 		});
 	}
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText file', function test( t ) {
+tape( 'the function converts Markdown data to a reStructuredText file', function test( t ) {
 	var outFile;
 	var outDir;
-	var inFile;
 	var bool;
 
 	outDir = path.resolve( __dirname, '..', 'build/'+(new Date()).getTime() );
 	outFile = path.join( outDir, 'README.rst' );
-	inFile = path.resolve( __dirname, '../README.md' );
 
 	mkdirp.sync( outDir );
-	md2rst( outFile, inFile );
+	md2rst( outFile, data );
 
 	bool = exists.sync( outFile );
 	t.ok( bool, 'converted file exists' );
@@ -76,18 +81,16 @@ tape( 'the function converts a Markdown file to a reStructuredText file', functi
 	t.end();
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText file (options)', function test( t ) {
+tape( 'the function converts Markdown data to a reStructuredText file (options)', function test( t ) {
 	var outFile;
 	var outDir;
-	var inFile;
 	var bool;
 
 	outDir = path.resolve( __dirname, '..', 'build/'+(new Date()).getTime() );
 	outFile = path.join( outDir, 'README.rst' );
-	inFile = path.resolve( __dirname, '../README.md' );
 
 	mkdirp.sync( outDir );
-	md2rst( outFile, inFile, {'flavor':'github'} );
+	md2rst( outFile, data, {'flavor':'github'} );
 
 	bool = exists.sync( outFile );
 	t.ok( bool, 'converted file exists' );
@@ -95,70 +98,42 @@ tape( 'the function converts a Markdown file to a reStructuredText file (options
 	t.end();
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText string', function test( t ) {
-	var inFile;
-	var rst;
-
-	inFile = path.resolve( __dirname, '../README.md' );
-
-	rst = md2rst( inFile );
+tape( 'the function converts Markdown data to a reStructuredText string', function test( t ) {
+	var rst = md2rst( data );
 
 	t.equal( typeof rst, 'string', 'returns a string' );
 
 	t.end();
 });
 
-tape( 'the function converts a Markdown file to a reStructuredText string (options)', function test( t ) {
-	var inFile;
-	var rst;
-
-	inFile = path.resolve( __dirname, '../README.md' );
-
-	rst = md2rst( inFile, {'flavor':'github'} );
+tape( 'the function converts Markdown data to a reStructuredText string (options)', function test( t ) {
+	var rst = md2rst( data, {'flavor':'github'} );
 
 	t.equal( typeof rst, 'string', 'returns a string' );
 
 	t.end();
 });
 
-tape( 'the function throws if an error is encountered (conversion)', function test( t ) {
+tape( 'the function throws if an error is encountered', function test( t ) {
 	var outFile;
 	var outDir;
-	var inFile;
+	var md2rst;
 
 	outDir = path.resolve( __dirname, '..', 'build/'+(new Date()).getTime() );
 	outFile = path.join( outDir, 'README.rst' );
 
-	// Non-existent file:
-	inFile = path.resolve( __dirname, '../dfadlkfdjaflkdjflsdj.md' );
-
-	t.throws( foo, Error, 'throws an error' );
-	t.end();
-
-	function foo() {
-		md2rst( outFile, inFile );
-	}
-});
-
-tape( 'the function throws if an error is encountered (reading a tmp file)', function test( t ) {
-	var inFile;
-
-	inFile = path.resolve( __dirname, '../README.md' );
-
-	md2rst = proxyquire( './../lib/file/sync.js', {
-		'utils-fs-read-file': {
-			'sync': read
-		}
+	md2rst = proxyquire( './../lib/buffer/sync.js', {
+		'./../data/sync.js': convert
 	});
 
 	t.throws( foo, Error, 'throws an error' );
 	t.end();
 
-	function foo() {
-		md2rst( inFile );
+	function convert() {
+		throw new Error( 'beep' );
 	}
 
-	function read() {
-		return new Error( 'beep' );
+	function foo() {
+		md2rst( outFile, data, {} );
 	}
 });

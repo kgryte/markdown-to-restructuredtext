@@ -9,6 +9,7 @@ var md2rst = require( './../lib' );
 // TESTS //
 
 tape( 'main export is a function', function test( t ) {
+	t.ok( true, __filename );
 	t.equal( typeof md2rst, 'function', 'main export is a function' );
 	t.end();
 });

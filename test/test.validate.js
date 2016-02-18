@@ -9,6 +9,7 @@ var validate = require( './../lib/validate.js' );
 // TESTS //
 
 tape( 'file exports a validation function', function test( t ) {
+	t.ok( true, __filename );
 	t.equal( typeof validate, 'function', 'file exports a function' );
 	t.end();
 });
