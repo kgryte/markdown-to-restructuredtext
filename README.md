@@ -161,7 +161,7 @@ The `function` accepts the same `options` as [`md2rst()`](#async).
 
 
 <a name="async-buffer"></a>
-#### md2rst.fromString( [dest,] buffer[, opts], clbk )
+#### md2rst.fromBuffer( [dest,] buffer[, opts], clbk )
 
 Asynchronously converts a [Markdown][markdown] `buffer` to [reStructuredText][rst].
 
