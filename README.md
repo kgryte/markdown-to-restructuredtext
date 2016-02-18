@@ -91,7 +91,7 @@ function done( error ) {
 <a name="sync"></a>
 #### md2rst.sync( [dest,] src[, opts] )
 
-Synchronously converts [Markdown][markdown] to [reStructuredText][rst].
+Synchronously converts a [Markdown][markdown] file to [reStructuredText][rst].
 
 ``` javascript
 // Write to an output file:
