@@ -22,12 +22,12 @@ var md2rst = require( 'markdown-to-restructuredtext' );
 ```
 
 <a name="async"></a>
-#### md2rst( src, dest[, opts], clbk )
+#### md2rst( [dest,] src[, opts], clbk )
 
-Asynchronously converts [Markdown][markdown] to [reStructuredText][rst].
+Asynchronously converts a [Markdown][markdown] file to [reStructuredText][rst].
 
 ``` javascript
-md2rst( './README.md', './README.rst', done );
+md2rst( './README.rst', './README.md', done );
 
 function done( error ) {
 	if ( error ) {
@@ -37,7 +37,7 @@ function done( error ) {
 }
 ```
 
-The `source` and `destination` file paths may be either absolute or relative. If relative, a file path is resolved relative to the [current working directory][utils-cwd].
+The `destination` and `source` file paths may be either absolute or relative. If relative, a file path is resolved relative to the [current working directory][utils-cwd].
 
 ``` javascript
 var inFile = '/path/to/my/file.md';
@@ -45,13 +45,26 @@ var outFile = './../output.rst';
 
 process.chdir( '/some/directory' );
 
-md2rst( inFile, outFile, done );
+md2rst( outFile, inFile, done );
 
 function done( error ) {
 	if ( error ) {
 		throw error;
 	}
 	console.log( 'output file: /some/output.rst' );
+}
+```
+
+If not provided a `destination` file path, the `function` returns a [reStructuredText][rst] `string`.
+
+``` javascript
+md2rst( './README.md', done );
+
+function done( error, rst ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( rst );
 }
 ```
 
@@ -65,7 +78,7 @@ var opts = {
 	'flavor': 'github' // GFM
 };
 
-md2rst( './README.md', './README.rst', opts, done );
+md2rst( './README.rst', './README.md', opts, done );
 
 function done( error ) {
 	if ( error ) {
@@ -76,12 +89,127 @@ function done( error ) {
 ```
 
 <a name="sync"></a>
-#### md2rst.sync( src, dest[, opts] )
+#### md2rst.sync( [dest,] src[, opts] )
 
-Synchronously converts [Markdown][markdown] to [reStructuredText][rst].
+Synchronously converts a [Markdown][markdown] file to [reStructuredText][rst].
 
 ``` javascript
-md2rst.sync( './README.md', './README.rst' );
+// Write to an output file:
+md2rst.sync( './README.rst', './README.md' );
+
+// Return a reStructuredText string:
+var rst = md2rst.sync( './README.md' );
+// returns <string>
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="async-string"></a>
+#### md2rst.fromString( [dest,] str[, opts], clbk )
+
+Asynchronously converts a [Markdown][markdown] `string` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md', {'encoding':'utf8'} );
+
+md2rst.fromString( './README.rst', data, done );
+
+function done( error ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( 'converted' );
+}
+```
+
+If not provided a `destination` file path, the `function` returns a [reStructuredText][rst] `string`.
+
+``` javascript
+md2rst.fromString( data, done );
+
+function done( error, rst ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( rst );
+}
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="sync-string"></a>
+#### md2rst.fromStringSync( [dest,] str[, opts] )
+
+Synchronously converts a [Markdown][markdown] `string` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md', {'encoding':'utf8'} );
+
+// Write to an output file:
+md2rst.fromStringSync( './README.rst', data );
+
+// Return a reStructuredText string:
+var rst = md2rst.fromStringSync( data );
+// returns <string>
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="async-buffer"></a>
+#### md2rst.fromBuffer( [dest,] buffer[, opts], clbk )
+
+Asynchronously converts a [Markdown][markdown] `buffer` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md' );
+
+md2rst.fromBuffer( './README.rst', data, done );
+
+function done( error ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( 'converted' );
+}
+```
+
+If not provided a `destination` file path, the `function` returns a [reStructuredText][rst] `string`.
+
+``` javascript
+md2rst.fromBuffer( data, done );
+
+function done( error, rst ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( rst );
+}
+```
+
+The `function` accepts the same `options` as [`md2rst()`](#async).
+
+
+<a name="sync-buffer"></a>
+#### md2rst.fromBufferSync( [dest,] buffer[, opts] )
+
+Synchronously converts a [Markdown][markdown] `buffer` to [reStructuredText][rst].
+
+``` javascript
+var readFile = require( 'utils-fs-read-file' ).sync;
+var data = readFile( './README.md' );
+
+// Write to an output file:
+md2rst.fromBufferSync( './README.rst', data );
+
+// Return a reStructuredText string:
+var rst = md2rst.fromBufferSync( data );
+// returns <string>
 ```
 
 The `function` accepts the same `options` as [`md2rst()`](#async).
@@ -94,16 +222,25 @@ The `function` accepts the same `options` as [`md2rst()`](#async).
 var path = require( 'path' );
 var md2rst = require( 'markdown-to-restructuredtext' );
 
-var inFile = path.resolve( __dirname, '../README.md' );
-var outFile = './examples/README.rst';
+var inFile = path.resolve( __dirname, '../../README.md' );
+var outFile = path.join( __dirname, './README.rst' );
 
 var opts = {
 	'flavor': 'github'
 };
 
-md2rst( inFile, outFile, opts, done );
+md2rst( inFile, opts, onResults );
 
-function done( error ) {
+function onResults( error, rst ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( rst );
+}
+
+md2rst( outFile, inFile, opts, onFile );
+
+function onFile( error ) {
 	if ( error ) {
 		throw error;
 	}
@@ -115,7 +252,7 @@ function done( error ) {
 To run the example code from the top-level application directory,
 
 ``` bash
-$ DEBUG=* node ./examples/index.js
+$ DEBUG=* node ./examples/file_async/index.js
 ```
 
 
@@ -147,7 +284,7 @@ Options:
 
 ### Notes
 
-*	If not provided an `output` file path, the implementation will check the `input` file path for a `*.markdown` or `*.md` extension. If present, the `output` file will replace the `input` file extension with `*.rst` and write to a new file. If not present, the implementation will overwrite the `input` file.
+*	If not provided an `output` file path, the generated [reStructuredText][rst] is written to `stdout`.
 
 
 ### Examples

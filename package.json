@@ -30,6 +30,10 @@
     "pandoc",
     "markdown",
     "md",
+    "file",
+    "buffer",
+    "string",
+    "from",
     "restructuredtext",
     "rst",
     "md2rst",
@@ -47,10 +51,13 @@
   "dependencies": {
     "debug": "^2.2.0",
     "minimist": "^1.2.0",
+    "node-uuid": "^1.4.7",
+    "type-name": "^2.0.0",
     "update-notifier": "^0.6.0",
     "utils-copy": "^1.1.0",
     "utils-cwd": "^2.0.0",
-    "validate.io-function": "^1.0.2",
+    "utils-fs-read-file": "^1.0.0",
+    "utils-tmpdir": "^1.0.2",
     "validate.io-object": "^1.0.4",
     "validate.io-string-primitive": "^1.0.0"
   },
@@ -61,6 +68,7 @@
     "jshint": "2.x.x",
     "jshint-stylish": "2.x.x",
     "mkdirp": "^0.5.1",
+    "proxyquire": "^1.7.4",
     "tap-spec": "4.x.x",
     "tape": "4.x.x",
     "utils-fs-exists": "^1.0.1"

@@ -9,6 +9,7 @@ var cmd = require( './../lib/cmd.js' );
 // TESTS //
 
 tape( 'main export is a function', function test( t ) {
+	t.ok( true, __filename );
 	t.equal( typeof cmd, 'function', 'main export is a function' );
 	t.end();
 });
