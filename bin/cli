@@ -92,7 +92,7 @@ if ( outFile === void 0 ) {
 *
 * @private
 * @param {Error|Null} [error] - error object
-* @param {Buffer} [results] - conversion results
+* @param {String} [results] - conversion results
 * @returns {Void}
 */
 function clbk( error, results ) {
@@ -100,7 +100,7 @@ function clbk( error, results ) {
 		throw error;
 	}
 	if ( arguments.length === 2 ) {
-		process.stdout.write( results.toString(), 'utf8' );
+		process.stdout.write( results, 'utf8' );
 		process.stdout.write( '\n', 'utf8' );
 	}
 }
