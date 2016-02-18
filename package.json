@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-restructuredtext",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Convert Markdown to reStructuredText.",
   "author": {
     "name": "Athan Reines",
