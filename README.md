@@ -4,6 +4,7 @@ Markdown to reStructuredText
 
 > Convert [Markdown][markdown] to [reStructuredText][rst].
 
+<a target="_blank" rel="nofollow" href="https://app.codesponsor.io/link/2GH3ESgBANYoWNMCAicW2LQk/kgryte/markdown-to-restructuredtext"><img alt="Sponsor" width="888" height="68" src="https://app.codesponsor.io/embed/2GH3ESgBANYoWNMCAicW2LQk/kgryte/markdown-to-restructuredtext.svg"/></a>
 
 ## Installation
 
